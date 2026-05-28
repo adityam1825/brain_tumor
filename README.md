@@ -1,4 +1,4 @@
-Brain Tumor Detection Using CNN
+**Brain Tumor Detection Using CNN**
 
 An AI-powered web application for detecting and classifying brain tumors from MRI scans using Convolutional Neural Networks (CNN). The system provides automated prediction, tumor visualization, and an easy-to-use interface for medical image analysis.
 
