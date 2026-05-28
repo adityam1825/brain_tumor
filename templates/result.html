@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brain Tumor Analysis Report</title>
+
+<style>
+/* ---------- GENERAL ---------- */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f2f5f9;
+    color: #2c3e50;
+}
+
+header {
+    background: linear-gradient(135deg, #1abc9c, #117864);
+    color: white;
+    padding: 22px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+h3 {
+    margin-top: 0;
+    color: #1f618d;
+}
+
+p {
+    line-height: 1.7;
+    color: #555;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.risk {
+    background: #fdebd0;
+    color: #7d6608;
+}
+
+.severity {
+    background: #f5b7b1;
+    color: #922b21;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.images {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.images img {
+    width: 260px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.caption {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 8px;
+    color: #666;
+}
+
+ul {
+    padding-left: 18px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+.highlight {
+    background: #ebf5fb;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.warning-box {
+    background: #fdecea;
+    border-left: 6px solid #c0392b;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.next-steps {
+    background: #e8f8f5;
+    border-left: 6px solid #16a085;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* ---------- BUTTONS ---------- */
+.actions {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 12px 26px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.print {
+    background: #1f618d;
+    color: white;
+}
+
+.retry {
+    background: #5d6d7e;
+    color: white;
+}
+
+/* ---------- PRINT ---------- */
+@media print {
+    header, .actions {
+        display: none;
+    }
+    body {
+        background: white;
+    }
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    🧠 Brain Tumor AI Analysis – Medical Report
+</header>
+
+<div class="container">
+
+<!-- Images -->
+<div class="card">
+    <div class="images">
+        <div>
+            <img src="{{ image_path }}">
+            <div class="caption">Uploaded MRI Image</div>
+        </div>
+        <div>
+            <img src="{{ heatmap_path }}">
+            <div class="caption">AI Model Attention (Grad-CAM)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="card">
+    <h3>Clinical Summary</h3>
+    <p>
+        <strong>Predicted Tumor Type:</strong> {{ result | upper }} <br>
+        <strong>Confidence:</strong> {{ confidence }}%
+        <span class="badge risk">{{ info.risk }}</span>
+        <span class="badge severity">{{ info.severity }}</span>
+    </p>
+</div>
+
+<!-- Effect -->
+<div class="card">
+    <h3>How It Affects the Brain</h3>
+    <p>{{ info.about }}</p>
+</div>
+
+<!-- Diet -->
+<div class="card">
+    <h3>Dietary Recommendations</h3>
+    <div class="grid">
+        <div>
+            <strong>✅ Recommended</strong>
+            <ul>
+                {% for item in info.diet_do %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <strong>❌ Avoid</strong>
+            <ul>
+                {% for item in info.diet_dont %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Emergency -->
+<div class="card warning-box">
+    <h3>⚠️ Seek Immediate Medical Attention If</h3>
+    <ul>
+        <li>Sudden severe headaches</li>
+        <li>Frequent seizures</li>
+        <li>Loss of vision or speech</li>
+        <li>Sudden weakness or confusion</li>
+    </ul>
+</div>
+
+<!-- Next Steps -->
+<div class="card next-steps">
+    <h3>🩺 Suggested Next Medical Steps</h3>
+    <ul>
+        <li>Consult a {{ info.specialist }}</li>
+        <li>Confirm diagnosis with clinical MRI review</li>
+        <li>Consider biopsy or follow-up imaging if advised</li>
+        <li>Discuss treatment plan with specialist</li>
+    </ul>
+</div>
+
+<!-- Footer -->
+<div class="card highlight">
+    <strong>Medical Disclaimer:</strong><br>
+    {{ disclaimer }}
+</div>
+
+<div class="actions">
+    <button onclick="window.print()" class="btn print">🖨️ Print Medical Report</button>
+    <a href="/" class="btn retry">🔄 Try Another Image</a>
+</div>
+
+</div>
+
+</body>
+</html>

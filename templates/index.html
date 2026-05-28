@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brain Tumor Detection</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<style>
+    body {
+        height: 100vh;
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* ---- NEW BACKGROUND ---- */
+    .bg-wrapper {
+        height: 100%;
+        width: 100%;
+        background:
+            radial-gradient(circle at top left, #d6f5f3, transparent 40%),
+            radial-gradient(circle at bottom right, #e8f0ff, transparent 40%),
+            linear-gradient(135deg, #f4f9fc, #eef5fb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ---- CARD ---- */
+    .upload-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        width: 100%;
+        max-width: 460px;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #1f618d;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        color: #566573;
+        margin-bottom: 25px;
+    }
+
+    input[type="file"] {
+        padding: 10px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #17a589, #138d75);
+    }
+
+    .footer-note {
+        margin-top: 15px;
+        font-size: 12px;
+        color: #7f8c8d;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="bg-wrapper">
+
+    <div class="upload-card">
+
+        <div class="title">🧠 Brain Tumor Detection</div>
+        <div class="subtitle">Enter Brain MRI Image</div>
+
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file"
+                   name="file"
+                   class="form-control mb-4"
+                   accept="image/*"
+                   required>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Upload & Analyze
+            </button>
+        </form>
+
+        <div class="footer-note">
+            AI-powered medical image analysis (educational use only)
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
