@@ -4,3 +4,6 @@ scikit-learn
 matplotlib
 Pillow
 numpy
+flask
+numpy
+opencv-python
